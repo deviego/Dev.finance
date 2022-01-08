@@ -6,58 +6,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <title>devfinance</title>
 </head>
 
 <body>
+
     <header>
-        <h1>Dev.finaces</h1>
+        <h1 id="logo">Dev.finaces</h1>
     </header>
-    <main>
-        <h2>Balanço</h2>
-        <h3>Entrada</h3>
-        <p>5.000,00</p>
 
-        <h3>Saídas</h3>
-        <p>2.000,00</p>
+    <main class="container">
+        <section id="balance">
+            <h2>Balanço</h2>
+            <div class="card">
+                <h3>Entrada</h3>
+                <p>5.000,00</p>
+            </div>
 
-        <h3>Total</h3>
-        <p>3.000,00</p>
+            <div class="card">
+                <h3>Saídas</h3>
+                <p>2.000,00</p>
+            </div>
 
-        <h2>Transações</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Data</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Luz</td>
-                    <td>- R$ 500,00 </td>
-                    <td>07/01/2022</td>
+            <div class="card total">
+                <h3>Total</h3>
+                <p>3.000,00</p>
+            </div>
 
-                    <td>web site</td>
-                    <td> R$ 5.000,00 </td>
-                    <td>07/01/2022</td>
+        </section>
+        <section id="transaction">
+            <h2>Transações</h2>
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="description">Luz</td>
+                        <td class="expense">- R$ 500,00 </td>
+                        <td class="date">07/01/2022</td>
+                    </tr>
+                    <tr>
+                        <td class="description">web site</td>
+                        <td class="income"> R$ 5.000,00 </td>
+                        <td class="date">07/01/2022</td>
+                    </tr>
+                    <tr>
+                        <td class="description">internet</td>
+                        <td class="expense">- R$ 100,00 </td>
+                        <td class="date">07/01/2022</td>
+                    </tr>
 
-                    <td>internet</td>
-                    <td>- R$ 100,00 </td>
-                    <td>07/01/2022</td>
-                </tr>
-            </tbody>
-        </table>
+
+                </tbody>
+            </table>
+        </section>
+
+
     </main>
     <footer>
         <p>D.finance$</p>
     </footer>
-
-
-
-
-
 
 
 </body>
