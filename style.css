@@ -9,8 +9,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+.sr-only{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
 
-body {
+ body {
     background-color: #bdc5cf;
     font-family: 'Poppins', sans-serif;
 }
@@ -37,18 +47,15 @@ header {
     background: #2D4A22;
     padding: 2rem 0 10rem;
     text-align: center;
-}
-
-header h1 {
-    color: #fff;
-    font-weight: 100;
+    
 }
 
 
 /*balance =================*/
 
 #balance {
-    margin-top: -8rem;
+    
+    margin-top: 82rem;
 }
 
 #balance h2 {
@@ -60,6 +67,7 @@ header h1 {
 /*cards ===*/
 
 .card {
+    
     background: white;
     padding: 1.5rem 2rem;
     border-radius: 0.25rem;
@@ -85,13 +93,15 @@ header h1 {
 
 
 /*table ======*/
-
-#transaction {}
-
+#transaction{
+    width: 100%;
+    display: block;
+    overflow: auto;
+}
 #data-table {
     width: 100%;
     border-spacing: 0 0.5rem;
-    color: #969cb3;
+    color: var(--color-dark);
 }
 
 table thead tr th:first-child,
@@ -104,6 +114,7 @@ table thead th {
     font-weight: normal;
     padding: 1rem 2rem;
     text-align: left;
+    color: var(--color-dark);
 }
 
 table tbody td {
