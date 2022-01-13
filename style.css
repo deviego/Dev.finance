@@ -9,23 +9,26 @@
     padding: 0;
     box-sizing: border-box;
 }
-.sr-only{
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
+
 
  body {
     background-color: #bdc5cf;
     font-family: 'Poppins', sans-serif;
 }
+  h2.sr-only{ 
+    position: absolute;
+     width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0; 
+}
 
 .container {
+   
     width: min(90vw, 800px);
     margin: auto;
 }
@@ -47,21 +50,21 @@ header {
     background: #2D4A22;
     padding: 2rem 0 10rem;
     text-align: center;
-    
+    margin: 0;
+  
+}
+#logo{
+    font-weight: 100;
 }
 
 
 /*balance =================*/
-
-#balance {
-    
-    margin-top: 82rem;
+ #conta {
+    margin-top: -7rem;
 }
 
-#balance h2 {
-    color: #fff;
-    margin-top: 0;
-}
+
+
 
 
 /*cards ===*/
@@ -78,12 +81,16 @@ header {
 .card h3 {
     font-weight: normal;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .card p {
     font-size: 2rem;
     line-height: 3rem;
     margin-top: 1rem;
+    white-space: nowrap;
 }
 
 .card.total {
