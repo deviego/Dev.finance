@@ -116,18 +116,18 @@ header {
 
 
 /*table ======*/
-/* #transaction{
+ #transaction{
     width: 100%;
     display: block;
     overflow: auto;
-} */
+} 
 #data-table {
-    display: block;
+   
     width: 100%;
     border-spacing: 0rem;
     color: var(--color-dark);
      
-    overflow-x:auto;
+
 }
 
 table thead tr th:first-child,
@@ -169,7 +169,8 @@ table tbody tr:hover {
 }
 
 .income {
-    color: #e92929;
+    
+color: #e92929;
 }
 
 
