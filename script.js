@@ -72,7 +72,7 @@ const DOM = {
 
 DOM.addTransaction(transactions[1])
 
-const Utils {
+const Utils =  {
     formatCurrency(value) {
         let signal = Number(value) < 0 ? "-" : ""
     }
