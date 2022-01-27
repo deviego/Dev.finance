@@ -215,12 +215,12 @@ table tbody tr:hover {
 }
 
 .expense {
-    color: #12a454;
+    color: #e92929;
 }
 
 .income {
     
-color: #e92929;
+color: var(--ligt-green);
 }
 
 
