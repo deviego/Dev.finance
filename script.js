@@ -26,7 +26,7 @@ const transactions = [
     {
         id: 3,
         descripiton: 'internet',
-        amount: -100,
+        amount: -10000,
         date: '07/01/2022' 
     },
 ]
@@ -56,11 +56,13 @@ const DOM = {
 
     innerHTMLTransaction(transaction){
         const CSSclass = transaction.amount > 0 ? "income" : "expense"
-        const amount = Utils.formatCurrency(transaction.amount)
+        
+        const amount = Utils.formatCurrency(transaction.amount);
+
         const html = 
         `
             <td class="description ">${transaction.descripiton}</td>
-            <td class="${CSSclass} ">${transaction.amount}</td>
+            <td class="${CSSclass} ">${amount}</td>
             <td class="date ">${transaction.date}</td>
             <td><img src="assets/minus.svg" alt=""></td>
          ` 
@@ -70,14 +72,24 @@ const DOM = {
        
 }
 
-DOM.addTransaction(transactions[1])
+ const Utils = {
+     formatCurrency(value){
+        const signal = Number(value) < 0 ? "-" :""
 
-const Utils =  {
-    formatCurrency(value) {
-        let signal = Number(value) < 0 ? "-" : ""
-    }
-}
+        value = String(value).replace(/\D/g, "")
+        value = Number(value)/ 100
+        
+        value = value.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        })
+        return signal + value
+     }
+ }
 
 transactions.forEach(function(transaction){
     DOM.addTransaction(transaction)
-})
+ })
+ 
+
+
