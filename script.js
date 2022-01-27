@@ -32,10 +32,18 @@ const transactions = [
 ]
 
 const transaction = {
+    all:transactions,
+
+    adc(transaction) {
+        Transaction.all.push(transaction)
+
+        console.log(transaction.all)
+    },
+
     incomes() {
         //somar entrada
         let income = 0;
-        transactions.forEach((transaction) => {
+        transaction.all.forEach((transaction) => {
             if(transaction.amount > 0){
                 income = income += transaction.amount
             }
@@ -45,7 +53,7 @@ const transaction = {
     expenses(){
         //somar as saidas
         let expense = 0;
-        transactions.forEach((transaction) => {
+        transaction.all.forEach((transaction) => {
             if(transaction.amount < 0) {
                 expense = expense += transaction.amount
             }
@@ -111,10 +119,15 @@ const DOM = {
      }
  }
 
+//  Transaction.adc({
+//     id: 5,
+//     descripiton: 'Luz',
+//     amount: 20000,
+//     date: '23/01/2022'})
+
 transactions.forEach(function(transaction){
     DOM.addTransaction(transaction)
  })
- 
 
 DOM.updateBalance()
 
