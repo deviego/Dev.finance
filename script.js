@@ -31,7 +31,7 @@ const transactions = [
     },
 ]
 
-const transaction = {
+const Transaction = {
     all:transactions,
 
     adc(transaction) {
@@ -43,7 +43,7 @@ const transaction = {
     incomes() {
         //somar entrada
         let income = 0;
-        transaction.all.forEach((transaction) => {
+        Transaction.all.forEach((transaction) => {
             if(transaction.amount > 0){
                 income = income += transaction.amount
             }
@@ -53,7 +53,7 @@ const transaction = {
     expenses(){
         //somar as saidas
         let expense = 0;
-        transaction.all.forEach((transaction) => {
+        Transaction.all.forEach((transaction) => {
             if(transaction.amount < 0) {
                 expense = expense += transaction.amount
             }
@@ -63,7 +63,7 @@ const transaction = {
     total(){
         //somar o talal
         
-        return transaction.incomes() - transaction.expenses()
+        return Transaction.incomes() - Transaction.expenses()
     }
 
 }
@@ -95,11 +95,11 @@ const DOM = {
     },
 
     updateBalance() {
-        document.getElementById('entradas').innerHTML = Utils.formatCurrency(transaction.incomes()) 
+        document.getElementById('entradas').innerHTML = Utils.formatCurrency(Transaction.incomes()) 
 
-        document.getElementById('ExpenseDisplay').innerHTML = Utils.formatCurrency( transaction.expenses())
+        document.getElementById('ExpenseDisplay').innerHTML = Utils.formatCurrency( Transaction.expenses())
 
-        document.getElementById('TotalDisplay').innerHTML = Utils.formatCurrency(transaction.total()) 
+        document.getElementById('TotalDisplay').innerHTML = Utils.formatCurrency(Transaction.total()) 
         }
        
 }
@@ -119,11 +119,12 @@ const DOM = {
      }
  }
 
-//  Transaction.adc({
-//     id: 5,
-//     descripiton: 'Luz',
-//     amount: 20000,
-//     date: '23/01/2022'})
+  Transaction.adc(
+    {
+    id: 5,
+    descripiton : 'Luz',
+    amount: 20000,
+    date: '23/01/2022'})
 
 transactions.forEach(function(transaction){
     DOM.addTransaction(transaction)
