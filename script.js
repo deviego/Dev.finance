@@ -1,135 +1,172 @@
-const Modal= {
-    open(){
-        document.querySelector('.modal-overlay').classList.add('active')
-        
-    },
-    close(){
-        document
-        .querySelector('.modal-overlay')
-        .classList.remove('active')
-    }
-}
+const Modal = {
+  open() {
+    document.querySelector(".modal-overlay").classList.add("active");
+  },
+  close() {
+    document.querySelector(".modal-overlay").classList.remove("active");
+  },
+};
 
-const transactions = [
-    {
-        id: 1,
-        descripiton: 'Luz',
-        amount: -50000,
-        date: '23/01/2022'
-    },
-    {
-        id: 2,
-        descripiton: 'Web',
-        amount: 500000,
-        date: '07/01/2022'
-    },
-    {
-        id: 3,
-        descripiton: 'internet',
-        amount: -10000,
-        date: '07/01/2022' 
-    },
-]
 
 const Transaction = {
-    all:transactions,
+  all:[{
+    descripiton: "Luz",
+    amount: -50000,
+    date: "23/01/2022",
+  },
+  {
+    descripiton: "Web",
+    amount: 500000,
+    date: "07/01/2022",
+  },
+  {
+  
+    descripiton: "internet",
+    amount: -10000,
+    date: "07/01/2022",
+  },] ,
 
-    adc(transaction) {
-        Transaction.all.push(transaction)
+  adc(transaction) {
+    Transaction.all.push(transaction);
 
-        console.log(transaction.all)
-    },
+    app.reload()
+  },
 
-    incomes() {
-        //somar entrada
-        let income = 0;
-        Transaction.all.forEach((transaction) => {
-            if(transaction.amount > 0){
-                income = income += transaction.amount
-            }
-        })
-       return income
-    },
-    expenses(){
-        //somar as saidas
-        let expense = 0;
-        Transaction.all.forEach((transaction) => {
-            if(transaction.amount < 0) {
-                expense = expense += transaction.amount
-            }
-        })
-       return expense
-    },
-    total(){
-        //somar o talal
-        
-        return Transaction.incomes() - Transaction.expenses()
-    }
+  remove(index) {
+    Transaction.all.splice(index, 1)
+    app.reload()
+  },
+  incomes() {
+    //somar entrada
+    let income = 0;
+    Transaction.all.forEach((transaction) => {
+      if (transaction.amount > 0) {
+        income = income += transaction.amount;
+      }
+    });
+    return income;
+  },
+  expenses() {
+    //somar as saidas
+    let expense = 0;
+    Transaction.all.forEach((transaction) => {
+      if (transaction.amount < 0) {
+        expense = expense += transaction.amount;
+      }
+    });
+    return expense;
+  },
+  total() {
+    //somar o talal
 
-}
+    return Transaction.incomes() - Transaction.expenses();
+  },
+};
 
 const DOM = {
-    TransactionContainer: document.querySelector('#data-table tbody'),
+  TransactionContainer: document.querySelector("#data-table tbody"),
 
-    addTransaction(transaction, index) {
-        const tr = document.createElement('tr')
-        tr.innerHTML = DOM.innerHTMLTransaction(transaction)
+  addTransaction(transaction, index) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = DOM.innerHTMLTransaction(transaction);
 
-        DOM.TransactionContainer.appendChild(tr)
-    },
+    DOM.TransactionContainer.appendChild(tr);
+  },
 
-    innerHTMLTransaction(transaction){
-        const CSSclass = transaction.amount > 0 ? "income" : "expense"
-        
-        const amount = Utils.formatCurrency(transaction.amount);
+  innerHTMLTransaction(transaction) {
+    const CSSclass = transaction.amount > 0 ? "income" : "expense";
 
-        const html = 
-        `
+    const amount = Utils.formatCurrency(transaction.amount);
+
+    const html = `
             <td class="description ">${transaction.descripiton}</td>
             <td class="${CSSclass} ">${amount}</td>
             <td class="date ">${transaction.date}</td>
             <td><img src="assets/minus.svg" alt=""></td>
-         ` 
-         
-         return html
-    },
+         `;
 
-    updateBalance() {
-        document.getElementById('entradas').innerHTML = Utils.formatCurrency(Transaction.incomes()) 
+    return html;
+  },
 
-        document.getElementById('ExpenseDisplay').innerHTML = Utils.formatCurrency( Transaction.expenses())
+  updateBalance() {
+    document.getElementById("entradas").innerHTML = Utils.formatCurrency(
+      Transaction.incomes()
+    );
 
-        document.getElementById('TotalDisplay').innerHTML = Utils.formatCurrency(Transaction.total()) 
-        }
-       
-}
+    document.getElementById("ExpenseDisplay").innerHTML = Utils.formatCurrency(
+      Transaction.expenses()
+    );
 
- const Utils = {
-     formatCurrency(value){
-        const signal = Number(value) < 0 ? "-" :""
+    document.getElementById("TotalDisplay").innerHTML = Utils.formatCurrency(
+      Transaction.total()
+    );
+  },
 
-        value = String(value).replace(/\D/g, "")
-        value = Number(value)/ 100
-        
-        value = value.toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL"
-        })
-        return signal + value
-     }
- }
+  clearTransactions() {
+    DOM.TransactionContainer.innerHTML = ""
+  }
+};
 
-  Transaction.adc(
-    {
-    id: 5,
-    descripiton : 'Luz',
-    amount: 20000,
-    date: '23/01/2022'})
+const Utils = {
+  formatCurrency(value) {
+    const signal = Number(value) < 0 ? "-" : "";
 
-transactions.forEach(function(transaction){
-    DOM.addTransaction(transaction)
- })
+    value = String(value).replace(/\D/g, "");
+    value = Number(value) / 100;
 
-DOM.updateBalance()
+    value = value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+    return signal + value;
+  },
+};
 
+const form = {
+  descripiton: document.querySelector('input#descripition'),
+  amount: document.querySelector('input#amount'),
+  date: document.querySelector('input#date'),
+  getValue(){
+    return{
+      descripiton: form.descripiton.value,
+      amount: form.amount.value,
+      date:form.date.value,
+    }
+  },
+  validateField(){
+    const {descripiton, amount, date } = form.getValue()
 
+    if(descripiton.trim() === "" || amount.trim() === "" || date.trim() === ""){
+      throw new Error("Por Favor, preencha todos os campos ")
+    }
+    console.log(descripiton)
+  },
+  submit(event) {
+    event.preventDefault()
+
+    try{
+      form.validateField()
+    } catch (error){
+      alert(error.message)
+    }
+    
+  }
+};
+
+const app = {
+  init() {
+    Transaction.all.forEach(transaction => {
+      DOM.addTransaction(transaction);
+    });
+
+    DOM.updateBalance()
+  },
+
+  reload(){
+    DOM.clearTransactions()
+    app.init()
+  },
+
+};
+
+app.init()
