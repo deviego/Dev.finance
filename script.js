@@ -7,34 +7,34 @@ const Modal = {
   },
 };
 
-
 const Transaction = {
-  all:[{
-    descripiton: "Luz",
-    amount: -50000,
-    date: "23/01/2022",
-  },
-  {
-    descripiton: "Web",
-    amount: 500000,
-    date: "07/01/2022",
-  },
-  {
-  
-    descripiton: "internet",
-    amount: -10000,
-    date: "07/01/2022",
-  },] ,
+  all: [
+    {
+      descripiton: "Luz",
+      amount: -50000,
+      date: "23/01/2022",
+    },
+    {
+      descripiton: "Web",
+      amount: 500000,
+      date: "07/01/2022",
+    },
+    {
+      descripiton: "internet",
+      amount: -10000,
+      date: "07/01/2022",
+    },
+  ],
 
   adc(transaction) {
     Transaction.all.push(transaction);
 
-    app.reload()
+    app.reload();
   },
 
   remove(index) {
-    Transaction.all.splice(index, 1)
-    app.reload()
+    Transaction.all.splice(index, 1);
+    app.reload();
   },
   incomes() {
     //somar entrada
@@ -103,20 +103,20 @@ const DOM = {
   },
 
   clearTransactions() {
-    DOM.TransactionContainer.innerHTML = ""
-  }
+    DOM.TransactionContainer.innerHTML = "";
+  },
 };
 
 const Utils = {
-  formatAmount(value){
-    value = Number(value) *100
-    
-    return value
-  },
-  formatDate(value){
-    value = Date(value)
+  formatAmount(value) {
+    value = Number(value) * 100;
 
-    return value
+    return value;
+  },
+  formatDate(date) {
+    const splitteDate = date.split("-");
+
+    return `${splitteDate[2]}/${splitteDate[1]}/${splitteDate[0]}`;
   },
   formatCurrency(value) {
     const signal = Number(value) < 0 ? "-" : "";
@@ -133,61 +133,75 @@ const Utils = {
 };
 
 const form = {
-  descripiton: document.querySelector('input#descripition'),
-  amount: document.querySelector('input#amount'),
-  date: document.querySelector('input#date'),
-  getValue(){
-    return{
+  descripiton: document.querySelector("input#descripition"),
+  amount: document.querySelector("input#amount"),
+  date: document.querySelector("input#date"),
+  getValue() {
+    return {
       descripiton: form.descripiton.value,
       amount: form.amount.value,
-      date:form.date.value,
-    }
+      date: form.date.value,
+    };
   },
-  validateField(){
-    const {descripiton, amount, date } = form.getValue()
+  validateField() {
+    const { descripiton, amount, date } = form.getValue();
 
-    if(descripiton.trim() === "" || amount.trim() === "" || date.trim() === ""){
-      throw new Error("Por Favor, preencha todos os campos ")
+    if (
+      descripiton.trim() === "" ||
+      amount.trim() === "" ||
+      date.trim() === ""
+    ) {
+      throw new Error("Por Favor, preencha todos os campos ");
     }
-    console.log(descripiton)
   },
-  formatValues(){
-    let {descripiton, amount, date} = form.getValue()
-    amount = Utils.formatAmount(amount)
+  formatValues() {
+    let { descripiton, amount, date } = form.getValue();
+    amount = Utils.formatAmount(amount);
+    date = Utils.formatDate(date);
+
+    return {
+      descripiton,
+      amount,
+      date,
+    };
   },
-  formatDate(){
-    let {descripiton, amount, date} = form.getValue()
-    date = Utils.formatDate(date)
+  saveTransaction(transaction) {
+    Transaction.adc(transaction);
   },
+  clearFields() {
+    form.descripiton.value = "";
+    form.amount.value = "";
+    form.date.value = "";
+  },
+
   submit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
-    try{
-      //form.validateField()
-      form.formatValues()
-
-    } catch (error){
-
-      alert(error.message)
+    try {
+      form.validateField();
+      const transaction = form.formatValues();
+      form.saveTransaction(transaction);
+      form.clearFields();
+      Modal.close();
+    } catch (error) {
+      alert(error.message);
     }
-    
-  }
+  },
 };
 
 const app = {
   init() {
-    Transaction.all.forEach(transaction => {
+    Transaction.all.forEach((transaction) => {
       DOM.addTransaction(transaction);
     });
 
-    DOM.updateBalance()
+    DOM.updateBalance();
   },
 
-  reload(){
-    DOM.clearTransactions()
-    app.init()
+  reload() {
+    DOM.clearTransactions();
+    app.init();
   },
-
 };
 
-app.init()
+app.init();
